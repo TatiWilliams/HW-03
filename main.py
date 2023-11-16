@@ -1,16 +1,38 @@
-num_tickets = int(input("Введите количество билетов: "))
-total_cost = 0
-count_discounted = 0
-for i in range(num_tickets):
-    age = int(input("Введите возраст посетителя: "))
-    if age < 18:
-        cost = 0  
-    elif age >= 18 and age < 25:
-        count_discounted += 1 
-        cost = 990  
+def binary_search(arr, target): # эта функция принимает отсортированый список и определяет интервал, в котором будет проходить поиск. Устанавливает номер позиции элемента.
+
+    low = 0
+    high = len(arr) - 1
+
+    while low <= high:
+        mid = (low + high) // 2
+        guess = arr[mid]
+
+        if guess == target:
+            return mid
+        if guess < target:
+            low = mid + 1
+        else:
+            high = mid - 1
+
+    return low
+
+
+def main():
+    sequence = input("Введите последовательность чисел через пробел: ")
+    target = int(input("Введите число: "))
+
+    numbers = list(map(int, sequence.split())) # преобразует введенную последовательность в список 
+    numbers.sort() # сортирует список
+
+    index = binary_search(numbers, target)
+
+    if index == len(numbers):
+        print("Число больше всех элементов последовательности")
     else:
-        cost = 1390  
-    total_cost += cost  
-if num_tickets > 3:
-    total_cost *= 0.9  
-print("Сумма к оплате: ", total_cost, "руб.")
+        print(f"Число {target} должно находиться на позиции {index}")
+
+
+if __name__ == "__main__": # проверяем запускается ли скрипт напрямую или импортируется в другой модуль. 
+
+
+    main()
